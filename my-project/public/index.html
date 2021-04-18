@@ -45,14 +45,13 @@
       <div id="flowtow-grid-container">
             <script id = "three-posts-template" type="text/x-handlebars-template">
               {{#data}}
-
               <div id="Flowtow">
-              <ul> 
-              <img src={{p_url}}>
-              <li style = "font-weight: lighter; text-align: left; font-size:small"> Likes: {{p_likes}}</li>
-              <li>{{p_caption}}</li>
-              <li>{{p_author.username}}</li>
-              </ul>
+                <ul> 
+                <img src={{p_url}} style = "width: 60%;">
+                  <li style = "font-weight: lighter; text-align: left; font-size:small"> Likes: {{p_likes}}</li>
+                  <li>{{p_caption}}</li>
+                  <li>{{p_author.username}}</li>
+                </ul>
               </div>
               {{/data}}
             </script>

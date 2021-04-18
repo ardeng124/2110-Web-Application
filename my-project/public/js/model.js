@@ -111,7 +111,7 @@ const Model = {
     getRecentPosts: function(N) {
         let posts = this.getPosts();
         let recents = [];  
-        let sortedPosts = posts.slice();
+        let sortedPosts = posts;
         sortedPosts = sortedPosts.sort(function(a, b) {
             var dateA = new Date(a.published_at), dateB = new Date(b.published_at);
             return dateB - dateA;
@@ -128,7 +128,7 @@ const Model = {
     getPopularPosts: function(N) {
         let posts = this.getPosts();
         let populars = [];  
-        let sortedPosts = posts.slice();
+        let sortedPosts = posts;
         sortedPosts = sortedPosts.sort(function(a, b) {
             return b.p_likes - a.p_likes;
         });
