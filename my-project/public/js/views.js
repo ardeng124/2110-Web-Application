@@ -14,7 +14,20 @@ export {mostRecentPosts};
 //id: the target id of the funciton
 // data: the data the function will be using to change the view
 // templateID: the handlebars template to update
+
+
 function randomThreePosts(id, data, templateID){
+    let target = document.getElementById(id);
+    let template = Handlebars.compile(document.getElementById(templateID).textContent)
+    
+   // $("#recents").html(template({ array: people }));
+   let list = template({'data': data});
+   console.log(data);
+   console.log(list); 
+
+   target.innerHTML = list;
+}
+function randomThreePosts1(id, data, templateID){
     let randomValue = [Math.floor(Math.random() * data.length)]
     let target = document.getElementById(id);
   
@@ -40,13 +53,28 @@ list+="</ul>";
 function mostRecentPosts(id, data, templateID){
     let target = document.getElementById(id);
     let template = Handlebars.compile(document.getElementById(templateID).textContent)
-    $("#recents").html(template({ array: people }));
+    
+   // $("#recents").html(template({ array: people }));
+   let list = template({'data': data});
+   console.log(data);
+   console.log(list); 
+
+   target.innerHTML = list;
+};
+
+function mostPopularPosts(id, data, templateID){
+    let target = document.getElementById(id);
+    let template = Handlebars.compile(document.getElementById(templateID).textContent)
+    
+   // $("#recents").html(template({ array: people }));
+   let list = template({'data': data});
+   console.log(data);
+   console.log(list); 
+
+   target.innerHTML = list;
+};
 
 
-    let list = template({'data':data})
-    console.log(list);
-    //target.innerHTML = list;
-}
 
 function topTenPosts(id, data){
     

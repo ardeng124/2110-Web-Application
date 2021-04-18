@@ -33,14 +33,9 @@ import {Model} from "./model.js";
 window.addEventListener("modelUpdated", function(e){
     let data = Model.data.posts;
     console.log(data);
-
-    views.randomThreePosts("first-three",data,"three-posts-template");
-    views.randomThreePosts("second-three",data,"three-posts-template");
-    views.randomThreePosts("third-three",data,"three-posts-template");
-    views.mostRecentPosts('table-post-item',Model.getRecentPosts(10),"popular-posts-template");
-    Model.getRandomPosts(3);
-    
-
+    views.randomThreePosts("flowtow-grid-container",Model.getRandomPosts(3),"three-posts-template");
+    views.mostRecentPosts("recent-posts-container",Model.getRecentPosts(10),"recent-posts-template");
+    views.mostRecentPosts("popular-posts-container",Model.getPopularPosts(10),"popular-posts-template");
 });
 
 window.onload = function() {

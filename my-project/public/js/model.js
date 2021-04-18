@@ -99,10 +99,10 @@ const Model = {
         let posts = this.getPosts();
         var postsReturned = [];
         for(let i=0; i<N;i++){
-            let randomValue = [Math.floor(Math.random() * posts.length)]
-            postsReturned.push(posts[i]);
+            let randomValue = [Math.floor(Math.random() * posts.length)] //chooses a random value from the array?
+            postsReturned.push(posts[randomValue]);
         }
-        console.log(postsReturned+" ok ");
+        console.log(postsReturned);
         return postsReturned;
     },
 
@@ -126,7 +126,17 @@ const Model = {
     // getPopularPosts - return the N most popular as an array
     // posts, ordered by the number of likes
     getPopularPosts: function(N) {
-       
+        let posts = this.getPosts();
+        let populars = [];  
+        let sortedPosts = posts.slice();
+        sortedPosts = sortedPosts.sort(function(a, b) {
+            return b.p_likes - a.p_likes;
+        });
+        for(let i = 0; i< N;i++){
+            populars.push(sortedPosts[i]);
+        };
+        console.log(populars);  
+        return populars;
     },
 
 }

@@ -43,275 +43,58 @@
       <!-- templates -->
       
       <div id="flowtow-grid-container">
-        <div id="Flowtow">
-          <ul id="first-three">
             <script id = "three-posts-template" type="text/x-handlebars-template">
-              <img src={{img}}>
-              <li style = "font-weight: lighter; text-align: left; font-size:small"> Likes: {{likes}}</li>
-              <li>{{caption}}</li>
-              <li>{{author}}</li>
+              {{#data}}
+
+              <div id="Flowtow">
+              <ul> 
+              <img src={{p_url}}>
+              <li style = "font-weight: lighter; text-align: left; font-size:small"> Likes: {{p_likes}}</li>
+              <li>{{p_caption}}</li>
+              <li>{{p_author.username}}</li>
+              </ul>
+              </div>
+              {{/data}}
             </script>
-          </ul>
         </div>
-        <div id="Flowtow">
-          <ul id="second-three">
-            <script id = "three-posts-template" type="text/x-handlebars-template">
-              <img src={{img}}>
-              <li style = "font-weight: lighter; text-align: left; font-size:small"> Likes: {{likes}}</li>
-              <li>{{caption}}</li>
-              <li>{{author}}</li>
-            </script>
-          </ul>
-        </div>
-        <div id="Flowtow"> 
-          <ul id="third-three">
-            <script id = "three-posts-template" type="text/x-handlebars-template">
-              <img src={{img}}>
-              <li style = "font-weight: lighter; text-align: left; font-size:small"> Likes: {{likes}}</li>
-              <li>{{caption}}</li>
-              <li>{{author}}</li>
-            </script>
-          </ul>
-        </div>
-      </div>
+       
     <!-- <script id = "popular-posts-template" type="text/x-handlebars-template">-->
       <div id = "table-posts-container">
-        <tr><h2> Most recent posts </h2></tr>
-
+        <div id = "recent-posts-container">
+          <script id = "recent-posts-template" type="text/x-handlebars-template">
+            <table>
+              <tr><h2> Most recent posts </h2></tr>
+            {{#data}}
+              <tr id = "table-post-item">
+                <td><img src={{p_url}}></td>
+                <td style = "font-weight:Bold">{{p_caption}}</td>
+                <td style = "font-weight:lighter">{{p_author.username}}</td>
+                <td style = "font-weight:normal">{{published_at}}</td>
+                <td style = "font-weight:normal">{{p_likes}}</td>
+                <td><button>Like</button></td>
+              </tr>
+              {{/data}}
+          </table>
+          </script>
+        </div>
+      
         <div id = "popular-posts-container">
           <script id = "popular-posts-template" type="text/x-handlebars-template">
             <table>
-              {{#each recents}}
+              <tr><h2> Most popular posts </h2></tr>
+            {{#data}}
               <tr id = "table-post-item">
-                {{#each this}}
-                <td><img src={{image}}></td>
-                <td style = "font-weight:Bold">{{caption}}</td>
-                <td style = "font-weight:lighter">{{author}}</td>
-                <td style = "font-weight:normal">{{timestamp}}</td>
-                <td style = "font-weight:normal">{{likes}}</td>
+                <td><img src={{p_url}}></td>
+                <td style = "font-weight:Bold">{{p_caption}}</td>
+                <td style = "font-weight:lighter">{{p_author.username}}</td>
+                <td style = "font-weight:normal">{{published_at}}</td>
+                <td style = "font-weight:normal">{{p_likes}}</td>
                 <td><button>Like</button></td>
-                {{/each}}
               </tr>
-              {{/each}}
-
-            </table>
-          </script>
-        <table>
-          <!--
-        <tr id = "table-post-item">
-          <td><img src={{image}}></td>
-          <td style = "font-weight:Bold">{{caption}}</td>
-          <td style = "font-weight:lighter">{{author}}</td>
-          <td style = "font-weight:normal">{{timestamp}}</td>
-          <td style = "font-weight:normal">{{likes}}</td>
-          <td><button>Like</button></td>
-        </tr>
-        <tr id="table-post-item">
-          <td><img src="http://robohash.org/4fb7de71-0353-4f52-b1e7-c0f0e727cb4b"></td>
-          <td style="font-weight:Bold">Tran Barrett</td>
-          <td style="font-weight:lighter">by Alice</td>
-          <td style = "font-weight:normal">2021-03-22</td>
-          <td style = "font-weight:normal">Likes: 20</td>
-          <td><button>Like</button></td>
-        </tr>
-        <tr id="table-post-item">
-          <td><img src="http://robohash.org/11d03afc-8796-43f8-b733-12cf2b905cf2"></td>
-          <td style="font-weight:Bold">Maldonado Espinoza</td>
-          <td style="font-weight:lighter">by Bob</td>
-          <td style = "font-weight:normal">2021-03-25</td>
-          <td style = "font-weight:normal">Likes: 33</td>
-          <td><button>Like</button></td>
-        </tr>
-        <tr id="table-post-item">
-          <td><img src="http://robohash.org/28d444c8-c5a8-4f8e-8957-e47fcdc4d77"></td>
-          <td style="font-weight:Bold">Carole Sims </td>
-          <td style="font-weight:lighter">by Bob </td>
-          <td style = "font-weight:normal">2021-03-21 </td>
-          <td style = "font-weight:normal">Likes: 26</td>
-          <td><button>Like</button></td>
-        </tr>
-        <tr id="table-post-item">
-          <td><img src="http://robohash.org/965a6496-07f1-4e54-9954-fe77c69935d9"></td>
-          <td style="font-weight:Bold"> Stacey Pennington</td>
-          <td style="font-weight:lighter">by Cindy </td>
-          <td style = "font-weight:normal">2021-03-20</td>
-          <td style = "font-weight:normal">Likes: 6</td>
-          <td><button>Like</button></td>
-        </tr>
-        <tr id="table-post-item">
-          <td><img src="http://robohash.org/c649ca37-fc8a-4670-881d-18627caac234"></td>
-          <td style="font-weight:Bold"> Farrell Bradley</td>
-          <td style="font-weight:lighter">by Cindy </td>
-          <td style = "font-weight:normal">2021-03-24</td>
-          <td style = "font-weight:normal">Likes: 17</td>
-          <td><button>Like</button></td>
-        </tr>
-        <tr id="table-post-item">
-          <td><img src="http://robohash.org/2c4c8865-3f4e-4e58-a84b-59b5acab67c5"></td>
-          <td style="font-weight:Bold"> Bridges Nolan</td>
-          <td style="font-weight:lighter">by David </td>
-          <td style = "font-weight:normal">2021-03-21</td>
-          <td style = "font-weight:normal">Likes: 24</td>
-          <td><button>Like</button></td>
-        </tr>
-        
-  
-        <tr id="table-post-item">
-          <td><img src="https://robohash.org/Mr%20man"></td>
-          <td style="font-weight:Bold"> Mr Man</td>
-          <td style="font-weight:lighter">by Harry </td>
-          <td style = "font-weight:normal">2021-04-22</td>
-          <td style = "font-weight:normal">Likes: 13</td>
-          <td><button>Like</button></td>
-        </tr>
-        <tr id="table-post-item">
-          <td><img src="https://robohash.org/stop"  ></td>
-          <td style="font-weight:Bold">Stop</td>
-          <td style="font-weight:lighter">by Arden </td>
-          <td style = "font-weight:normal">2021-02-22</td>
-          <td style = "font-weight:normal">Likes: 4</td>
-          <td><button>Like</button></td>
-        </tr>
-        <tr id="table-post-item">
-          <td><img src="https://robohash.org/A%20tree"  ></td>
-          <td style="font-weight:Bold">A tree</td>
-          <td style="font-weight:lighter">by Josh </td>
-          <td style = "font-weight:normal">2021-03-19</td>
-          <td style = "font-weight:normal">Likes: 40</td>
-          <td><button>Like</button></td>
-        </tr>
+              {{/data}}
           </table>
-    
-      </div>
-    -->
-      <div id="popular-posts-container">
-        <table>
-          <tr>
-            <h2> Most popular posts </h2>
-          </tr>
-          <tr id="table-post-item">
-            <td>
-              <img src="http://robohash.org/8c4b1b5a-bb8f-489b-8102-a1e9634627e0"  >
-            </td>
-            <td style="font-weight:Bold">Penelope Curtis</td>
-            <td style="font-weight:lighter">by Alice</td>
-            <td style="font-weight:normal">2021-03-25</td>
-            <td style="font-weight:normal">Likes: 10</td>
-            <td>
-              <button>Like</button>
-            </td>
-          </tr>
-          <tr id="table-post-item">
-            <td>
-              <img src="http://robohash.org/4fb7de71-0353-4f52-b1e7-c0f0e727cb4b"  >
-            </td>
-            <td style="font-weight:Bold">Tran Barrett</td>
-            <td style="font-weight:lighter">by Alice</td>
-            <td style="font-weight:normal">2021-03-22</td>
-            <td style="font-weight:normal">Likes: 20</td>
-            <td>
-              <button>Like</button>
-            </td>
-          </tr>
-          <tr id="table-post-item">
-            <td>
-              <img src="http://robohash.org/11d03afc-8796-43f8-b733-12cf2b905cf2"  >
-            </td>
-            <td style="font-weight:Bold">Maldonado Espinoza</td>
-            <td style="font-weight:lighter">by Bob</td>
-            <td style="font-weight:normal">2021-03-25</td>
-            <td style="font-weight:normal">Likes: 33</td>
-            <td>
-              <button>Like</button>
-            </td>
-          </tr>
-          <tr id="table-post-item">
-            <td>
-              <img src="http://robohash.org/28d444c8-c5a8-4f8e-8957-e47fcdc4d77"  >
-            </td>
-            <td style="font-weight:Bold">Carole Sims </td>
-            <td style="font-weight:lighter">by Bob </td>
-            <td style="font-weight:normal">2021-03-21 </td>
-            <td style="font-weight:normal">Likes: 26</td>
-            <td>
-              <button>Like</button>
-            </td>
-          </tr>
-          <tr id="table-post-item">
-            <td>
-              <img src="http://robohash.org/965a6496-07f1-4e54-9954-fe77c69935d9"  >
-            </td>
-            <td style="font-weight:Bold"> Stacey Pennington</td>
-            <td style="font-weight:lighter">by Cindy </td>
-            <td style="font-weight:normal">2021-03-20</td>
-            <td style="font-weight:normal">Likes: 6</td>
-            <td>
-              <button>Like</button>
-            </td>
-          </tr>
-          <tr id="table-post-item">
-            <td>
-              <img src="http://robohash.org/c649ca37-fc8a-4670-881d-18627caac234"  >
-            </td>
-            <td style="font-weight:Bold"> Farrell Bradley</td>
-            <td style="font-weight:lighter">by Cindy </td>
-            <td style="font-weight:normal">2021-03-24</td>
-            <td style="font-weight:normal">Likes: 17</td>
-            <td>
-              <button>Like</button>
-            </td>
-          </tr>
-          <tr id="table-post-item">
-            <td>
-              <img src="http://robohash.org/2c4c8865-3f4e-4e58-a84b-59b5acab67c5"  >
-            </td>
-            <td style="font-weight:Bold"> Bridges Nolan</td>
-            <td style="font-weight:lighter">by David </td>
-            <td style="font-weight:normal">2021-03-21</td>
-            <td style="font-weight:normal">Likes: 24</td>
-            <td>
-              <button>Like</button>
-            </td>
-          </tr>
-          <!-- Custom -->
-          <tr id="table-post-item">
-            <td>
-              <img src="https://robohash.org/Mr%20man"  >
-            </td>
-            <td style="font-weight:Bold"> Mr Man</td>
-            <td style="font-weight:lighter">by Harry </td>
-            <td style="font-weight:normal">2021-04-22</td>
-            <td style="font-weight:normal">Likes: 13</td>
-            <td>
-              <button>Like</button>
-            </td>
-          </tr>
-          <tr id="table-post-item">
-            <td>
-              <img src="https://robohash.org/stop"  >
-            </td>
-            <td style="font-weight:Bold">Stop</td>
-            <td style="font-weight:lighter">by Arden </td>
-            <td style="font-weight:normal">2021-02-22</td>
-            <td style="font-weight:normal">Likes: 4</td>
-            <td>
-              <button>Like</button>
-            </td>
-          </tr>
-          <tr id="table-post-item">
-            <td>
-              <img src="https://robohash.org/A%20tree"  >
-            </td>
-            <td style="font-weight:Bold">A tree</td>
-            <td style="font-weight:lighter">by Josh </td>
-            <td style="font-weight:normal">2021-03-19</td>
-            <td style="font-weight:normal">Likes: 40</td>
-            <td>
-              <button>Like</button>
-            </td>
-          </tr>
-        </table>
-        </div>
+          </script>
+          </div>
       </div>
       <div id = "whatis">
         <p> Flowtow is an image sharing website!</p>
