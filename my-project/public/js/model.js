@@ -59,7 +59,12 @@ const Model = {
 
     // getPost - return a single post given its id
     getPost: function(postid) {
-
+        let posts = this.getPosts();
+        for(let i =0; i < posts.length; i++){
+            if(posts[i].id === postid){
+                return posts[i];
+            }
+        }
     },
 
     setPosts: function(posts) {

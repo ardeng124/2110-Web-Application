@@ -92,7 +92,9 @@ header {
     padding: 40px;
    
 }
-
+.post{
+cursor: pointer;
+}
 #whatis {
     width: 300px;
     background-color: forestgreen;
@@ -100,6 +102,12 @@ header {
     text-align: center;
     margin:30px;
     padding: 40px;
+}
+#single-post img {
+    margin:15px;
+    padding:5px;
+    width:30%;
+    height: auto;
 }
 
 footer {

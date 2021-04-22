@@ -9,6 +9,8 @@
  */
 export {randomThreePosts};
 export {mostRecentPosts};
+export {mostPopularPosts};
+export {singlePostView};
 
 // compile the template
 //id: the target id of the funciton
@@ -22,32 +24,7 @@ function randomThreePosts(id, data, templateID){
     
    // $("#recents").html(template({ array: people }));
    let list = template({'data': data});
-   console.log(data);
-   console.log(list); 
-
    target.innerHTML = list;
-}
-function randomThreePosts1(id, data, templateID){
-    let randomValue = [Math.floor(Math.random() * data.length)]
-    let target = document.getElementById(id);
-  
-    let template = Handlebars.compile(document.getElementById(templateID).textContent)
-    let list =  template(
-        {
-        img: data[randomValue].p_url,
-        caption: data[randomValue].p_caption,
-        likes: data[randomValue].p_likes,
-        author: data[randomValue].p_author.username
-    })
-    /*
-   var list = '<ul>';
-   list+= '<li>' + "<img src="+data[randomValue].p_url+">"+"</li>"
-   list+= '<li>' + data[randomValue].p_caption+"</li>"
-   list+= '<li>' +"By: " + data[randomValue].p_author.username+"</li>"
-   list+= '<li>'+"Likes : " + data[randomValue].p_likes+"</li>"
-list+="</ul>";
-*/
-    target.innerHTML = list;
 }
 
 function mostRecentPosts(id, data, templateID){
@@ -56,8 +33,6 @@ function mostRecentPosts(id, data, templateID){
     
    // $("#recents").html(template({ array: people }));
    let list = template({'data': data});
-   console.log(data);
-   console.log(list); 
 
    target.innerHTML = list;
 };
@@ -68,14 +43,13 @@ function mostPopularPosts(id, data, templateID){
     
    // $("#recents").html(template({ array: people }));
    let list = template({'data': data});
-   console.log(data);
-   console.log(list); 
-
    target.innerHTML = list;
 };
+function singlePostView(id, data){
+    let target = document.getElementById("main");
+    let template = Handlebars.compile(document.getElementById(id).textContent)
 
-
-
-function topTenPosts(id, data){
-    
+   // $("#recents").html(template({ array: people }));
+   let list = template(data);
+   target.innerHTML = list;
 }

@@ -24,7 +24,7 @@
               <li><a href="#">Home</a></li>
               <li><a href="#!/all-posts">All Posts</a></li>
               <li><a href="#!/my-posts">My Posts</a></li>
-              <li><a href="#whatis">About</a></li>
+              <li><a href="#!/whatis">About</a></li>
           </ul>
       </nav>
     </header>
@@ -34,20 +34,19 @@
       <div id="heading">
           
           <hgroup>
-              <h1>Welcome to FlowTow</h1>
+              <h1>Welcome to FlowTow!</h1>
           </hgroup>
       
           <div id="target"></div>
 
       </div>
-      <!-- templates -->
-      
+  <div id = "main">  
       <div id="flowtow-grid-container">
             <script id = "three-posts-template" type="text/x-handlebars-template">
               {{#data}}
-              <div id="Flowtow">
+              <div class='flowtow'>
                 <ul> 
-                <img src={{p_url}} style = "width: 60%;">
+                <li class = "post" data-id={{id}} data-hash="#!/posts/{{id}}"><img src={{p_url}} style = "width: 60%;"> </li>
                   <li style = "font-weight: lighter; text-align: left; font-size:small"> Likes: {{p_likes}}</li>
                   <li>{{p_caption}}</li>
                   <li>{{p_author.username}}</li>
@@ -57,51 +56,18 @@
             </script>
         </div>
        
-    <!-- <script id = "popular-posts-template" type="text/x-handlebars-template">-->
       <div id = "table-posts-container">
-        <div id = "recent-posts-container">
-          <script id = "recent-posts-template" type="text/x-handlebars-template">
-            <table>
-              <tr><h2> Most recent posts </h2></tr>
-            {{#data}}
-              <tr id = "table-post-item">
-                <td><img src={{p_url}}></td>
-                <td style = "font-weight:Bold">{{p_caption}}</td>
-                <td style = "font-weight:lighter">{{p_author.username}}</td>
-                <td style = "font-weight:normal">{{published_at}}</td>
-                <td style = "font-weight:normal">{{p_likes}}</td>
-                <td><button>Like</button></td>
-              </tr>
-              {{/data}}
-          </table>
-          </script>
-        </div>
-      
-        <div id = "popular-posts-container">
-          <script id = "popular-posts-template" type="text/x-handlebars-template">
-            <table>
-              <tr><h2> Most popular posts </h2></tr>
-            {{#data}}
-              <tr id = "table-post-item">
-                <td><img src={{p_url}}></td>
-                <td style = "font-weight:Bold">{{p_caption}}</td>
-                <td style = "font-weight:lighter">{{p_author.username}}</td>
-                <td style = "font-weight:normal">{{published_at}}</td>
-                <td style = "font-weight:normal">{{p_likes}}</td>
-                <td><button>Like</button></td>
-              </tr>
-              {{/data}}
-          </table>
-          </script>
-          </div>
+        <div id = "recent-posts-container"> </div>
+        <div id = "popular-posts-container"> </div>
       </div>
+    </div>    
       <div id = "whatis">
         <p> Flowtow is an image sharing website!</p>
       </div>
     </div>
 
   <footer>
-
+    
     <div id="social">
       <ul>
         <li id="social-twitter"><a href="#">Twitter</a></li>
@@ -121,6 +87,47 @@
 
 
   <!-- Templates -->
+  <script id = "recent-posts-template" type="text/x-handlebars-template">
+    <table>
+      <tr><h2> Most recent posts </h2></tr>
+    {{#data}}
+      <tr id = "table-post-item">
+        <td><img class = "post" data-id={{id}} src={{p_url}}></td>
+        <td c style = "font-weight:Bold">{{p_caption}}</td>
+        <td style = "font-weight:lighter">{{p_author.username}}</td>
+        <td style = "font-weight:normal">{{published_at}}</td>
+        <td style = "font-weight:normal">{{p_likes}}</td>
+        <td><button class = "like"'>Like</button></td>
+      </tr>
+      {{/data}}
+  </table>
+  </script>
+  <script id = "popular-posts-template" type="text/x-handlebars-template">
+    <table>
+      <tr><h2> Most popular posts </h2></tr>
+    {{#data}}
+      <tr id = "table-post-item">
+        <td><img class = "post" data-id={{id}} src={{p_url}}></td>
+        <td style = "font-weight:Bold">{{p_caption}}</td>
+        <td style = "font-weight:lighter">{{p_author.username}}</td>
+        <td style = "font-weight:normal">{{published_at}}</td>
+        <td style = "font-weight:normal">{{p_likes}}</td>
+        <td><button class = "like">Like</button></td>
+      </tr>
+      {{/data}}
+  </table>
+  </script>
 
+  <script id="views-template" type="text/x-handlebars-template">
+    
+    <ul id = "single-post">
+      <img src="{{p_url}}" alt="{{p_caption}}">
+      <li>{{p_caption}}</li>
+      <li>By: {{p_author.username}}</li>
+      <li>{{published_at}}</li>
+      <li>{{p_likes}}</li>
+      <li><button class = "like">Like</button></li>
+    </ul>
+  </script>
   </body>
 </html>
