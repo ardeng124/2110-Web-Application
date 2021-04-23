@@ -30,15 +30,29 @@ function postClickHandler(){
     let id = this.dataset.id
     let post = Model.getPost(Number(id))
     console.log(post);
-    //location.hash = this.dataset.hash;
-    views.singlePostView("views-template",post)
+    location.hash = this.dataset.hash;
+    //views.singlePostView("views-template",post)
 }
+
 
 function bindings(){
     let postItems = document.getElementsByClassName('post');
     for(let i =0; i<postItems.length; i++){
         postItems[i].onclick = postClickHandler;
     }
+    let likeBtn = document.getElementsByClassName('like');
+    for(let i =0; i<likeBtn.length; i++){
+        likeBtn[i].onclick = post_like_handler;
+    }
+  
+    
+}
+function post_like_handler(){
+   // event.preventDefault();
+    //let hash = splitHash(window.location.hash);
+    let id = this.dataset.id
+    console.log(id)
+    Model.addLike(Number(id))
 }
 window.addEventListener("modelUpdated", function(e){
     let data = Model.data.posts;
@@ -48,25 +62,40 @@ window.addEventListener("modelUpdated", function(e){
     views.mostRecentPosts("popular-posts-container",Model.getPopularPosts(10),"popular-posts-template");
     bindings();
 });
-window.addEventListener("hashchange", function(e){
-
-});
-/*
+window.addEventListener("likeAdded", function(e){
+    //DO SOMETHING TO UPDATE 
+    Model.updatePosts();
+})
 window.addEventListener("hashchange", function(a){
     //redraw();
     let hash = splitHash(window.location.hash)
     console.log(hash);
-    if(hash.path == "whatis"){
+    if(window.location.hash === "#"){
+        Model.updatePosts();
+        console.log('ho')
+        reDoEverything()
+
+    }
+    if(window.location.hash == "whatis"){
         let About = document.getElementById("whatis")
         About.scrollIntoView();
-    }else if(hash.path = "posts"){
+    } 
+    if(hash.path == "posts"){
         let id = hash.id
         let post = Model.getPost(Number(id))
         views.singlePostView("views-template",post)
     }
-   
-})*/
-
+    bindings();
+})
+function reDoEverything(){
+    let target = document.getElementById('main');
+    let content = "<div id='flowtow-grid-container'></div>" 
+    content+="<div id = 'table-posts-container'>"
+    content+= "div id = 'recent-posts-container'></div>"
+    content+="<div id = 'popular-posts-container'> </div>"
+    target.innerHTML = content;
+}
+/*
 window.onhashchange = function(){
     let hash = splitHash(window.location.hash)
     console.log(hash);
@@ -74,13 +103,12 @@ window.onhashchange = function(){
         let About = document.getElementById("whatis")
         About.scrollIntoView();
     }
-}
+}*/
 window.onload = function() {
     Model.updatePosts();
-    redraw();
+    //redraw();
     var template = Handlebars.compile("Handlebars <b>{{doesWhat}}</b>");
     // execute the compiled template and print the output to the console
     console.log(template({ doesWhat: "rocks!" }));
-    window.onhashchange = redraw();
-
+    //window.onhashchange = redraw();
 }

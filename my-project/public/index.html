@@ -1,6 +1,6 @@
 <!--
-  Student Name:
-  Student Number:
+  Student Name: Arden Gourlay
+  Student Number: 46447849
 -->
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@
               <li><a href="#">Home</a></li>
               <li><a href="#!/all-posts">All Posts</a></li>
               <li><a href="#!/my-posts">My Posts</a></li>
-              <li><a href="#!/whatis">About</a></li>
+              <li><a href="#whatis">About</a></li>
           </ul>
       </nav>
     </header>
@@ -40,21 +40,8 @@
           <div id="target"></div>
 
       </div>
-  <div id = "main">  
-      <div id="flowtow-grid-container">
-            <script id = "three-posts-template" type="text/x-handlebars-template">
-              {{#data}}
-              <div class='flowtow'>
-                <ul> 
-                <li class = "post" data-id={{id}} data-hash="#!/posts/{{id}}"><img src={{p_url}} style = "width: 60%;"> </li>
-                  <li style = "font-weight: lighter; text-align: left; font-size:small"> Likes: {{p_likes}}</li>
-                  <li>{{p_caption}}</li>
-                  <li>{{p_author.username}}</li>
-                </ul>
-              </div>
-              {{/data}}
-            </script>
-        </div>
+  <div id = "main"> 
+  <div id="flowtow-grid-container"> </div>
        
       <div id = "table-posts-container">
         <div id = "recent-posts-container"> </div>
@@ -65,7 +52,7 @@
         <p> Flowtow is an image sharing website!</p>
       </div>
     </div>
-
+  </div>
   <footer>
     
     <div id="social">
@@ -87,17 +74,29 @@
 
 
   <!-- Templates -->
+  <script id = "three-posts-template" type="text/x-handlebars-template">
+    {{#data}}
+    <div class='flowtow'>
+      <ul> 
+      <li class = "post" data-id={{id}} data-hash="#!/posts/{{id}}"><img src={{p_url}} style = "width: 60%;"> </li>
+        <li style = "font-weight: lighter; text-align: left; font-size:small"> Likes: {{p_likes}}</li>
+        <li>{{p_caption}}</li>
+        <li>{{p_author.username}}</li>
+      </ul>
+    </div>
+    {{/data}}
+  </script>
   <script id = "recent-posts-template" type="text/x-handlebars-template">
     <table>
       <tr><h2> Most recent posts </h2></tr>
     {{#data}}
       <tr id = "table-post-item">
-        <td><img class = "post" data-id={{id}} src={{p_url}}></td>
+        <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}}></td>
         <td c style = "font-weight:Bold">{{p_caption}}</td>
         <td style = "font-weight:lighter">{{p_author.username}}</td>
         <td style = "font-weight:normal">{{published_at}}</td>
         <td style = "font-weight:normal">{{p_likes}}</td>
-        <td><button class = "like"'>Like</button></td>
+        <td><button type = 'button' class = "like" data-id="{{id}}">Like</button></td>
       </tr>
       {{/data}}
   </table>
@@ -107,12 +106,12 @@
       <tr><h2> Most popular posts </h2></tr>
     {{#data}}
       <tr id = "table-post-item">
-        <td><img class = "post" data-id={{id}} src={{p_url}}></td>
+        <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}}></td>
         <td style = "font-weight:Bold">{{p_caption}}</td>
         <td style = "font-weight:lighter">{{p_author.username}}</td>
         <td style = "font-weight:normal">{{published_at}}</td>
         <td style = "font-weight:normal">{{p_likes}}</td>
-        <td><button class = "like">Like</button></td>
+        <td><button type = 'button' class = "like" data-id="{{id}}">Like</button></td>
       </tr>
       {{/data}}
   </table>
@@ -126,7 +125,7 @@
       <li>By: {{p_author.username}}</li>
       <li>{{published_at}}</li>
       <li>{{p_likes}}</li>
-      <li><button class = "like">Like</button></li>
+      <li><button type = 'button' class = "like" data-id="{{id}}">Like</button></li>
     </ul>
   </script>
   </body>

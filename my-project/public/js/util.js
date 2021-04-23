@@ -3,8 +3,8 @@
  * Module: <name>
  * < short description here e.g. "This module implements the utility functions...">
  *
- * Student Name:
- * Student Number:
+ * Student Name: Arden Gourlay
+ * Student Number: 46447849
  *
  */
 

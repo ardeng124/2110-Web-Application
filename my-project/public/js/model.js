@@ -1,11 +1,11 @@
 export {Model};
 /*
  *
- * Module: <name>
- * < short description here e.g. "This module implements ...">
+ * Module: Model
+ * Provides an interface for modifying the data from the database
  *
- * Student Name:
- * Student Number:
+ * Student Name: Arden Gourlay
+ * Student Number: 46447849
  *
  */
 
@@ -88,7 +88,30 @@ const Model = {
     //      postId - is the id of the post
     // when the request is resolved, creates an "likeAdded" event
     addLike: function (postId) {
-        
+        let target = this.getPost(postId);
+        console.log(target);
+        let likes = Number(target.p_likes)+1;
+        console.log(likes);
+        let url = this.postsUrl + "/"+postId;
+        target.p_likes = likes.toString();
+        likes = likes.toString();
+        console.log(target)
+        fetch(url,{
+            method: 'PUT',
+            headers: {
+                'content-type':'application/json'
+            },
+            body: JSON.stringify({
+                p_likes: likes
+            })
+        }).then((response) => {
+            return response.json()
+        }).then((data)=>{
+            console.log(data);
+            this.data.posts.push(data);
+            let event = new CustomEvent('likeAdded')
+            window.dispatchEvent(event);
+        })
     },
 
     // addComment - add a comment to a post 
