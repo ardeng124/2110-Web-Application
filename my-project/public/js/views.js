@@ -11,39 +11,30 @@ export {randomThreePosts};
 export {mostRecentPosts};
 export {mostPopularPosts};
 export {singlePostView};
+export {loginView};
 
 // compile the template
 //id: the target id of the funciton
 // data: the data the function will be using to change the view
 // templateID: the handlebars template to update
-
-
-function randomThreePosts(id, data, templateID){
-    let target = document.getElementById(id);
-    let template = Handlebars.compile(document.getElementById(templateID).textContent)
-    
+function applyTemplate(targetid,templateid,data){
+    let target = document.getElementById(targetid);
+    let template = Handlebars.compile(document.getElementById(templateid).textContent)
    // $("#recents").html(template({ array: people }));
-   let list = template({'data': data});
-   target.innerHTML = list;
+    target.innerHTML = template(data);
 }
-
-function mostRecentPosts(id, data, templateID){
-    let target = document.getElementById(id);
-    let template = Handlebars.compile(document.getElementById(templateID).textContent)
-    
-   // $("#recents").html(template({ array: people }));
-   let list = template({'data': data});
-
-   target.innerHTML = list;
+//randomThreePosts - generates a view of 3 random people
+//this applies the template to the three random posts
+function randomThreePosts(targetid,data){
+    applyTemplate(targetid,"three-posts-template",({'data': data}))
+}
+//this applies the template to most recent posts
+function mostRecentPosts(targetid,data){
+    applyTemplate(targetid,"recent-posts-template",({'data': data}))
 };
-
-function mostPopularPosts(id, data, templateID){
-    let target = document.getElementById(id);
-    let template = Handlebars.compile(document.getElementById(templateID).textContent)
-    
-   // $("#recents").html(template({ array: people }));
-   let list = template({'data': data});
-   target.innerHTML = list;
+//this applies the template to most popular posts
+function mostPopularPosts(targetid,data){
+    applyTemplate(targetid,"popular-posts-template",({'data': data}))
 };
 function singlePostView(id, data){
     let target = document.getElementById("main");
@@ -52,4 +43,7 @@ function singlePostView(id, data){
    // $("#recents").html(template({ array: people }));
    let list = template(data);
    target.innerHTML = list;
+}
+function loginView(targetid,data){
+    applyTemplate(targetid, 'login-template', {"data":data});
 }

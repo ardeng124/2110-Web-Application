@@ -28,9 +28,9 @@
           </ul>
       </nav>
     </header>
-
+   <div id = "login"></div>
     <div id="content">
-
+    
       <div id="heading">
           
           <hgroup>
@@ -127,6 +127,17 @@
       <li>{{p_likes}}</li>
       <li><button type = 'button' class = "like" data-id="{{id}}">Like</button></li>
     </ul>
+  </script>
+  <script id="login-template" type="text/x-handlebars-template">
+    {{#if data}} 
+      <p>Logged in as {{data.username}}</p>
+    {{else}} 
+      <form id="login-form">
+        Username: <input name=username>
+        Password: <input name=password type=password autocomplete="on">
+        <input type=submit value=Login>
+      </form> 
+    {{/if}}
   </script>
   </body>
 </html>
