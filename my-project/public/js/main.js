@@ -30,10 +30,11 @@ window.addEventListener("hashchange", function(a){
     //redraw();
     let hash = splitHash(window.location.hash)
     console.log(hash);
-    if(window.location.hash === "#"){
-        Model.updatePosts();
+    if(window.location.hash === ""){
+        reDoEverything();
+
         console.log('ho')
-        reDoEverything()
+        Model.updatePosts();
     }
     if(window.location.hash == "whatis"){
         let About = document.getElementById("whatis")
@@ -44,11 +45,35 @@ window.addEventListener("hashchange", function(a){
         let post = Model.getPost(Number(id))
         views.singlePostView("views-template",post)
     }
+    if(hash.path == "all-posts"){
+        let user = Auth.getUser();
+        if(user!=null){
+        console.log("ok")
+        views.allPostsView("all-posts-template",Model.getPosts())
+
+        } else{
+            views.allPostsView("all-posts-template",null)
+
+        }
+    }
+    if(hash.path == "my-posts"){
+        let user = Auth.getUser();
+        if(user!=null){
+            let user = Auth.getUser().id;
+            console.log("ok")
+            views.allPostsView("my-posts-template",Model.getUserPosts(user))
+        } else{
+            views.allPostsView("my-posts-template",null)
+
+            }
+    }
+    
     bindings();
 })
 window.addEventListener('userLogin', function(e){
     console.log("login event ")
-    views.loginView('login', Auth.getUser());
+    views.loginView2('login', Auth.getUser());
+    
 })
 
   function redraw() { 
@@ -89,7 +114,10 @@ function bindings(){
     let likeBtn = document.getElementsByClassName('like');
     for(let i =0; i<likeBtn.length; i++){
         likeBtn[i].onclick = post_like_handler;
+    
+    }
     let loginForm = document.getElementById('login-form')
+    if(loginForm !=null){
     loginForm.onsubmit = login_form_handler
     }
 }
@@ -104,9 +132,10 @@ function post_like_handler(){
 function reDoEverything(){
     let target = document.getElementById('main');
     let content = "<div id='flowtow-grid-container'></div>" 
+
     content+="<div id = 'table-posts-container'>"
-    content+= "div id = 'recent-posts-container'></div>"
-    content+="<div id = 'popular-posts-container'> </div>"
+    content+= "<div id = 'recent-posts-container'></div>"
+    content+="<div id = 'popular-posts-container'> </div></div>"
     target.innerHTML = content;
 }
 /*

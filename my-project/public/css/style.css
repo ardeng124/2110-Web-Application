@@ -133,7 +133,6 @@ nav a {
         color:white;
         font-weight: light;
         text-decoration: none;
-
 }
 img{
     border-radius: 10px;
@@ -141,4 +140,57 @@ img{
 #login {
     text-align: right;
     margin:20px;
+}
+
+#single-post{
+    border-style:solid;
+    border-radius:5px;
+    border-width:2px;
+    border-color:#2a52f5;
+    display: block;
+    justify-content: center;
+    text-align:center;
+    font-size:larger;
+}
+
+#all-table-post{
+    border-width: 1px;
+    border-style: dotted;
+    padding:10px;
+    border-color:#712af5;
+}
+#all-table-post td{
+    margin:10px;
+    /* IF I NEED RESPONSIVE FONT SIZES font-size:1.5vw; */
+    /*font-size: smaller;*/
+    white-space: nowrap;
+}
+#all-table-post button{
+    cursor: pointer;
+    padding: 5px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin-bottom: 10px;
+    background-color:#008CBA;
+    color:white;
+}
+#all-table-post img{
+    margin:1px;
+    padding:5px;
+    width:30%;
+    /*IF I NEED RESPONSIVE width:5% */
+    height:auto;
+}
+#all-table h2{
+    text-align: center;
+
+}
+#all-table {
+        margin:20px;
+        border-style:solid;
+        border-radius:5px;
+        border-width:2px;
+        border-color:#2a52f5;
+        width:90%;
 }

@@ -80,7 +80,15 @@ const Model = {
 
     // getUserPosts - return just the posts for one user as an array
     getUserPosts: function(userid) {
-        
+        let posts = this.getPosts();
+        let userPosts = [];
+        for(let i=0; i<posts.length;i++){
+            if(posts[i].p_author.id == userid){
+                userPosts.push(posts[i]);
+            }
+        }
+        console.log(userPosts,"ok");
+        return userPosts;
     },
 
     // addLike - increase the number of likes by 1 
@@ -125,7 +133,7 @@ const Model = {
     //getRandomPosts - return N random posts as an array
     getRandomPosts: function(N){
         let posts = this.getPosts();
-        var postsReturned = [];
+        let postsReturned = [];
         for(let i=0; i<N;i++){
             let randomValue = [Math.floor(Math.random() * posts.length)] //chooses a random value from the array?
             postsReturned.push(posts[randomValue]);

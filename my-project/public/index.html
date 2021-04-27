@@ -32,11 +32,9 @@
     <div id="content">
     
       <div id="heading">
-          
           <hgroup>
               <h1>Welcome to FlowTow!</h1>
           </hgroup>
-      
           <div id="target"></div>
 
       </div>
@@ -118,7 +116,6 @@
   </script>
 
   <script id="views-template" type="text/x-handlebars-template">
-    
     <ul id = "single-post">
       <img src="{{p_url}}" alt="{{p_caption}}">
       <li>{{p_caption}}</li>
@@ -131,13 +128,69 @@
   <script id="login-template" type="text/x-handlebars-template">
     {{#if data}} 
       <p>Logged in as {{data.username}}</p>
-    {{else}} 
+      {{else}}
       <form id="login-form">
         Username: <input name=username>
         Password: <input name=password type=password autocomplete="on">
         <input type=submit value=Login>
       </form> 
     {{/if}}
+  </script>
+  <script id="login-template2" type="text/x-handlebars-template">
+    {{#if data}} 
+      <p>Logged in as {{data.username}}</p>
+      {{else}}
+      <form id="login-form">
+        Username: <input name=username>
+        Password: <input name=password type=password autocomplete="on">
+        <input type=submit value=Login>
+        <p>Login Failed, please try again</p>
+      </form> 
+    {{/if}}
+  </script>
+  <script id = "all-posts-template" type="text/x-handlebars-template">
+    <div id = "all-table">
+      <h2> All posts </h2>
+    <table>
+      {{#if data}}
+         {{#data}}
+          <tr id = "all-table-post">
+            <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}}></td>
+            <td style = "font-weight:Bold">{{p_caption}}</td>
+            <td style = "font-weight:lighter">{{p_author.username}}</td>
+            <td style = "font-weight:normal">{{published_at}}</td>
+            <td style = "font-weight:normal">{{p_likes}}</td>
+            <td><button type = 'button' class = "like" data-id="{{id}}">Like</button></td>
+          </tr>
+        {{/data}}
+      {{else}}
+        <p>You have to login first</p>
+      {{/if}}
+  </table>
+  </div>
+  </script>
+
+  <script id = "my-posts-template" type="text/x-handlebars-template">
+    <div id = "all-table">
+      <h2> My posts </h2>
+      <table>
+        {{#if data}}
+           {{#data}}
+            <tr id = "all-table-post">
+              <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}}></td>
+              <td style = "font-weight:Bold">{{p_caption}}</td>
+              <td style = "font-weight:lighter">{{p_author.username}}</td>
+              <td style = "font-weight:normal">{{published_at}}</td>
+              <td style = "font-weight:normal">{{p_likes}}</td>
+              <td><button type = 'button' class = "like" data-id="{{id}}">Like</button></td>
+            </tr>
+          {{/data}}
+        {{else}}
+          <p>You have to login first</p>
+        {{/if}}
+    </table>
+
+  </div>
   </script>
   </body>
 </html>

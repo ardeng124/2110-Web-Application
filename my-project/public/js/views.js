@@ -12,6 +12,8 @@ export {mostRecentPosts};
 export {mostPopularPosts};
 export {singlePostView};
 export {loginView};
+export {loginView2};
+export {allPostsView};
 
 // compile the template
 //id: the target id of the funciton
@@ -46,4 +48,15 @@ function singlePostView(id, data){
 }
 function loginView(targetid,data){
     applyTemplate(targetid, 'login-template', {"data":data});
+}
+function loginView2(targetid,data){
+    applyTemplate(targetid, 'login-template2', {"data":data});
+}
+function allPostsView(id, data){
+    let target = document.getElementById("main");
+    let template = Handlebars.compile(document.getElementById(id).textContent)
+
+   // $("#recents").html(template({ array: people }));
+   let list = template({"data":data});
+   target.innerHTML = list;
 }
