@@ -7,13 +7,7 @@
  * Student Number: 46447849
  *
  */
-export {randomThreePosts};
-export {mostRecentPosts};
-export {mostPopularPosts};
-export {singlePostView};
-export {loginView};
-export {loginView2};
-export {allPostsView};
+export {randomThreePosts,mostRecentPosts,mostPopularPosts,singlePostView,loginView,loginView2,allPostsView};
 
 // compile the template
 //id: the target id of the funciton

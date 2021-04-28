@@ -19,7 +19,6 @@ import {Auth} from './service.js';
     views.mostRecentPosts("recent-posts-container",Model.getRecentPosts(10));
     views.mostRecentPosts("popular-posts-container",Model.getPopularPosts(10));
     views.loginView('login', Auth.getUser());
-
     bindings();
 });
 window.addEventListener("likeAdded", function(e){
@@ -28,11 +27,18 @@ window.addEventListener("likeAdded", function(e){
 })
 window.addEventListener("hashchange", function(a){
     //redraw();
+    checkHash();
+    bindings();
+})
+window.addEventListener('userLogin', function(e){
+    console.log("login event ")
+    views.loginView2('login', Auth.getUser());
+})
+function checkHash(){
     let hash = splitHash(window.location.hash)
     console.log(hash);
     if(window.location.hash === ""){
         reDoEverything();
-
         console.log('ho')
         Model.updatePosts();
     }
@@ -50,10 +56,8 @@ window.addEventListener("hashchange", function(a){
         if(user!=null){
         console.log("ok")
         views.allPostsView("all-posts-template",Model.getPosts())
-
         } else{
             views.allPostsView("all-posts-template",null)
-
         }
     }
     if(hash.path == "my-posts"){
@@ -63,21 +67,15 @@ window.addEventListener("hashchange", function(a){
             console.log("ok")
             views.allPostsView("my-posts-template",Model.getUserPosts(user))
         } else{
-            views.allPostsView("my-posts-template",null)
-
+            //views.allPostsView("my-posts-template",null)
+            let target = document.getElementById('main');
+            target.innerHTML = "<div id = 'all-table'> <h2> My posts </h2> <p> You have to login first</p></div>";
             }
     }
     
-    bindings();
-})
-window.addEventListener('userLogin', function(e){
-    console.log("login event ")
-    views.loginView2('login', Auth.getUser());
-    
-})
+}
 
   function redraw() { 
-
     let content = "<h2>API Test</h2><ul>";
     content += "<li><a href='/#'>Three Posts</a></li>";
     content += "<li><a href='/#'>Recent Posts</a></li>";
@@ -105,6 +103,19 @@ function login_form_handler (event) {
     Auth.login(username, password);
     //send 
 }
+function post_form_handler (event) {
+    event.preventDefault();
+    console.log('the post data is'+ this);
+    let postData = {
+        'p_url':this.elements['p_url'].value,
+        'p_caption':this.elements['p_caption'].value,
+        'p_author': Auth.getUser()
+    }
+   // console.log(username+password)
+    this.reset();
+    Model.addPost(postData);
+    //send 
+}
 
 function bindings(){
     let postItems = document.getElementsByClassName('post');
@@ -119,6 +130,10 @@ function bindings(){
     let loginForm = document.getElementById('login-form')
     if(loginForm !=null){
     loginForm.onsubmit = login_form_handler
+    }
+    let postForm = document.getElementById('postform')
+    if(postForm !=null){
+        postForm.onsubmit = post_form_handler
     }
 }
 function post_like_handler(){

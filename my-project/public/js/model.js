@@ -75,8 +75,19 @@ const Model = {
     // postData is an object containing all fields in the post object (e.g., p_caption)
     // when the request is resolved, creates an "postAdded" event
     addPost: function(postData) {
+        fetch(this.postsUrl,{
+            method: 'POST',
+            headers: {
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(postData)
+    }).then((response) => {
+        return response.json();
+    }).then((data) => {
+        console.log(data);
+    })
 
-    },
+},
 
     // getUserPosts - return just the posts for one user as an array
     getUserPosts: function(userid) {

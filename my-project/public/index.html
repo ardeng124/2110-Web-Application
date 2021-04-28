@@ -171,6 +171,12 @@
   </script>
 
   <script id = "my-posts-template" type="text/x-handlebars-template">
+    <form id="postform">
+      p_url: <input name=p_url>
+      p_caption:  <input name=p_caption>
+      <input type=submit>
+    </form>
+
     <div id = "all-table">
       <h2> My posts </h2>
       <table>
@@ -186,7 +192,7 @@
             </tr>
           {{/data}}
         {{else}}
-          <p>You have to login first</p>
+          <p>Upload some posts</p>
         {{/if}}
     </table>
 
