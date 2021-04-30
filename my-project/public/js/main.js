@@ -15,9 +15,10 @@ import {Auth} from './service.js';
  window.addEventListener("modelUpdated", function(e){
     let data = Model.data.posts;
     console.log(data);
-    views.randomThreePosts("flowtow-grid-container",Model.getRandomPosts(3));
-    views.mostRecentPosts("recent-posts-container",Model.getRecentPosts(10));
-    views.mostRecentPosts("popular-posts-container",Model.getPopularPosts(10));
+    checkHash();
+    //views.randomThreePosts("flowtow-grid-container",Model.getRandomPosts(3));
+    //views.mostRecentPosts("recent-posts-container",Model.getRecentPosts(10));
+   // views.mostRecentPosts("popular-posts-container",Model.getPopularPosts(10));
     views.loginView('login', Auth.getUser());
     bindings();
 });
@@ -27,7 +28,8 @@ window.addEventListener("likeAdded", function(e){
 })
 window.addEventListener("hashchange", function(a){
     //redraw();
-    checkHash();
+    //checkHash();
+    Model.updatePosts();
     bindings();
 })
 window.addEventListener('userLogin', function(e){
@@ -40,7 +42,10 @@ function checkHash(){
     if(window.location.hash === ""){
         reDoEverything();
         console.log('ho')
-        Model.updatePosts();
+        views.randomThreePosts("flowtow-grid-container",Model.getRandomPosts(3));
+        views.mostRecentPosts("recent-posts-container",Model.getRecentPosts(10));
+        views.mostRecentPosts("popular-posts-container",Model.getPopularPosts(10));
+        //Model.updatePosts();
     }
     if(window.location.hash == "whatis"){
         let About = document.getElementById("whatis")
@@ -49,7 +54,11 @@ function checkHash(){
     if(hash.path == "posts"){
         let id = hash.id
         let post = Model.getPost(Number(id))
+        if(Auth.getUser() !=null){
+            views.singlePostView("views-template2",post)
+        } else{
         views.singlePostView("views-template",post)
+        }
     }
     if(hash.path == "all-posts"){
         let user = Auth.getUser();
@@ -117,6 +126,22 @@ function post_form_handler (event) {
     //send 
 }
 
+function comment_form_handler (event) {
+    event.preventDefault();
+    let hash = splitHash(window.location.hash)
+    let id = hash.id
+    let commentData = {
+        'c_content':this.elements['c_content'].value,
+        'c_author': Auth.getUser(),
+        'c_post': Model.getPost(Number(id))
+    }
+   // console.log(username+password)
+   //console.log(this);
+   Model.addComment(commentData);
+    this.reset();
+    //send 
+}
+
 function bindings(){
     let postItems = document.getElementsByClassName('post');
     for(let i =0; i<postItems.length; i++){
@@ -125,7 +150,6 @@ function bindings(){
     let likeBtn = document.getElementsByClassName('like');
     for(let i =0; i<likeBtn.length; i++){
         likeBtn[i].onclick = post_like_handler;
-    
     }
     let loginForm = document.getElementById('login-form')
     if(loginForm !=null){
@@ -134,6 +158,10 @@ function bindings(){
     let postForm = document.getElementById('postform')
     if(postForm !=null){
         postForm.onsubmit = post_form_handler
+    }
+    let commentForm = document.getElementById('commentform')
+    if(commentForm !=null){
+        commentForm.onsubmit = comment_form_handler
     }
 }
 function post_like_handler(){

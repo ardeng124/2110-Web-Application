@@ -118,11 +118,37 @@
   <script id="views-template" type="text/x-handlebars-template">
     <ul id = "single-post">
       <img src="{{p_url}}" alt="{{p_caption}}">
-      <li>{{p_caption}}</li>
+      <li style = "font-size:larger">{{p_caption}}</li>
+      <br>
+      <br>
       <li>By: {{p_author.username}}</li>
       <li>{{published_at}}</li>
       <li>{{p_likes}}</li>
+      <br>
       <li><button type = 'button' class = "like" data-id="{{id}}">Like</button></li>
+    </ul>
+  </script>
+  <script id="views-template2" type="text/x-handlebars-template">
+    <ul id = "single-post">
+      <img src="{{p_url}}" alt="{{p_caption}}">
+      <li style = "font-size:larger">{{p_caption}}</li>
+      <br>
+      <br>
+      <li>By: {{p_author.username}}</li>
+      <li>{{published_at}}</li>
+      <li>{{p_likes}}</li>
+      <br>
+      <li><button type = 'button' class = "like" data-id="{{id}}">Like</button></li>
+      <br>
+
+      {{#each p_comment}}
+      <li style = "font-weight:lighter; font-style:italic;font-size:smaller;"> {{c_content}}</span></li>
+      {{/each}}
+      <br>
+      <form id="commentform">
+        Comment: <input name=c_content>
+        <input type=submit>
+      </form>
     </ul>
   </script>
   <script id="login-template" type="text/x-handlebars-template">

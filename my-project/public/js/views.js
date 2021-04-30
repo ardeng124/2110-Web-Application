@@ -40,6 +40,7 @@ function singlePostView(id, data){
    let list = template(data);
    target.innerHTML = list;
 }
+
 function loginView(targetid,data){
     applyTemplate(targetid, 'login-template', {"data":data});
 }

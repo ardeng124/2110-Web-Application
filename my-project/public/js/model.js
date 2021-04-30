@@ -45,7 +45,6 @@ const Model = {
                 this.data.posts = data;
                 let event = new CustomEvent("modelUpdated");
                 window.dispatchEvent(event);
-               
     
             } 
         )
@@ -138,7 +137,27 @@ const Model = {
     //      commentData is an object containing the content of the comment, the author and the postid
     // when the request is resolved, creates an "commentAdded" event
     addComment: function (commentData) {
-        
+        let url = this.postsUrl + "/"+commentData.c_post.id;
+        fetch(this.commentsUrl,{
+            method: 'POST',
+            headers: {
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(commentData)
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+            console.log(data);
+            fetch(url,{
+                method: 'PUT',
+                headers: {
+                    'content-type':'application/json'
+                },
+                body: JSON.stringify({
+                    p_comment: data
+                })
+            })
+        })
     },
 
     //getRandomPosts - return N random posts as an array

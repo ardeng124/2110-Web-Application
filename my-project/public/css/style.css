@@ -194,3 +194,13 @@ img{
         border-color:#2a52f5;
         width:90%;
 }
+.like {
+        cursor: pointer;
+        padding: 5px 25px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        margin-bottom: 10px;
+        background-color:#008CBA;
+        color:white;
+}
