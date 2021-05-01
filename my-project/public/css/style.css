@@ -6,8 +6,8 @@ body {
     font-family: sans-serif;
     font-weight: 100;
     font-size:large;
-    transition-duration: 0.5s;
     background-color:#bdeffc;
+    justify-content: center;
 }
 
 ul{
@@ -23,6 +23,8 @@ li{
     border-width:2px;
     border-color:#2a52f5;
     width:fit-content;
+    background-color: #bbfcfc;
+
 }
 #table-post-item{
     border-width: 1px;
@@ -33,15 +35,15 @@ li{
 #table-post-item td{
     margin:7px;
     /* IF I NEED RESPONSIVE FONT SIZES font-size:1.5vw; */
-    font-size: smaller;
+    font-size: 1.3vw;
     white-space: nowrap;
 }
 #table-post-item button{
     cursor: pointer;
-    padding: 5px 25px;
+    padding: 0.24vw 1.5vw;
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 1.2vw;
     margin-bottom: 10px;
     background-color:#008CBA;
     color:white;
@@ -49,13 +51,13 @@ li{
 #table-post-item img{
     margin:1px;
     padding:5px;
-    width:35px;
+    width:3vw;
     /*IF I NEED RESPONSIVE width:5% */
     height:auto;
 }
 #table-posts-container table{
     border-collapse: collapse;
-    width:80%;
+    width:100%;
 
 }
 #table-post-item tr{
@@ -65,7 +67,7 @@ li{
 #table-posts-container{
     width:100%;
     display:grid;   
-    grid-template-columns: 55% 55%;
+    grid-template-columns: 50% 50%;
     grid-column-gap: 5px
 }
 /* THREE POSTS STYLING */
@@ -73,10 +75,22 @@ li{
     width:100%;
     display:grid;   
     grid-template-columns: 30% 30% 30%;
-    grid-column-gap: 50px
+    grid-column-gap: 50px;
+    background-color: #bbfcfc;
+    border-style:solid;
+    border-radius:5px;
+    border-width:2px;
+    border-color:#2a52f5;
 }
+
 #flowtow ul{
     text-align: center;
+}
+#recent-posts-container{
+    margin:5px
+}
+#popular-posts-container{
+    margin:5px
 }
 header {
     width: 100%;
@@ -102,7 +116,9 @@ cursor: pointer;
     text-align: center;
     margin:30px;
     padding: 40px;
+    justify-content: center;
 }
+
 #single-post img {
     margin:15px;
     padding:5px;
@@ -110,9 +126,6 @@ cursor: pointer;
     height: auto;
 }
 
-footer {
-    background-color: yellow;
-}
 nav {
     width: 100%;
     background-image: url('../img/header-background.png');
@@ -147,7 +160,8 @@ img{
     border-radius:5px;
     border-width:2px;
     border-color:#2a52f5;
-    display: block;
+    background-color: #bbfcfc;
+    display:block;
     justify-content: center;
     text-align:center;
     font-size:larger;
@@ -163,14 +177,16 @@ img{
     margin:10px;
     /* IF I NEED RESPONSIVE FONT SIZES font-size:1.5vw; */
     /*font-size: smaller;*/
+    font-size: 1.4vw;
     white-space: nowrap;
+    padding:0.5vw
 }
 #all-table-post button{
     cursor: pointer;
     padding: 5px 25px;
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 1.2vw;
     margin-bottom: 10px;
     background-color:#008CBA;
     color:white;
@@ -178,7 +194,7 @@ img{
 #all-table-post img{
     margin:1px;
     padding:5px;
-    width:30%;
+    width:13vw;
     /*IF I NEED RESPONSIVE width:5% */
     height:auto;
 }
@@ -187,7 +203,7 @@ img{
 
 }
 #all-table {
-        margin:20px;
+        margin:5%;
         border-style:solid;
         border-radius:5px;
         border-width:2px;
@@ -203,4 +219,16 @@ img{
         margin-bottom: 10px;
         background-color:#008CBA;
         color:white;
+}
+#create-post-area{
+    margin: 1vw;
+    padding: 1vw;
+    border-style: solid;
+    border-color: #2a52f5;
+    border-radius: 5px;
+    border-width: 2px;
+    background-color: #bbfcfc;
+}
+#bottom{
+    background-color: #bbecfc;
 }

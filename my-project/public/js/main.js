@@ -44,7 +44,7 @@ function checkHash(){
         console.log('ho')
         views.randomThreePosts("flowtow-grid-container",Model.getRandomPosts(3));
         views.mostRecentPosts("recent-posts-container",Model.getRecentPosts(10));
-        views.mostRecentPosts("popular-posts-container",Model.getPopularPosts(10));
+        views.mostPopularPosts("popular-posts-container",Model.getPopularPosts(10));
         //Model.updatePosts();
     }
     if(window.location.hash == "whatis"){
@@ -112,13 +112,32 @@ function login_form_handler (event) {
     Auth.login(username, password);
     //send 
 }
+//FIX THIS FUNCTION EY?
+function post_form_handlerxxxx (event) {
+    event.preventDefault();
+    console.log('the post data is'+ this);
+    let picture = this.elements['p_image'].files[0]
+    let postData = {
+        'p_url':this.elements['p_url'].value,
+        'p_caption':this.elements['p_caption'].value,
+        'p_author': Auth.getUser(),
+    }
+
+    let imageData = new FormData()
+    imageData.append("files",picture)
+   // console.log(username+password)
+    this.reset();
+    Model.addPost(imageData, postData);
+    //send 
+}
+
 function post_form_handler (event) {
     event.preventDefault();
     console.log('the post data is'+ this);
     let postData = {
         'p_url':this.elements['p_url'].value,
         'p_caption':this.elements['p_caption'].value,
-        'p_author': Auth.getUser()
+        'p_author': Auth.getUser(),
     }
    // console.log(username+password)
     this.reset();
@@ -139,6 +158,7 @@ function comment_form_handler (event) {
    //console.log(this);
    Model.addComment(commentData);
     this.reset();
+    Model.updatePosts();
     //send 
 }
 

@@ -40,7 +40,8 @@
       </div>
   <div id = "main"> 
   <div id="flowtow-grid-container"> </div>
-       
+  <br>
+
       <div id = "table-posts-container">
         <div id = "recent-posts-container"> </div>
         <div id = "popular-posts-container"> </div>
@@ -52,7 +53,7 @@
     </div>
   </div>
   <footer>
-    
+    <div id = "bottom">
     <div id="social">
       <ul>
         <li id="social-twitter"><a href="#">Twitter</a></li>
@@ -68,6 +69,7 @@
     </ul>
     
     <p id="copyright">All content and images subject to copyright &copy; COMP2110/6110 FlowTow 2021.</p>
+  </div>
   </footer>
 
 
@@ -76,38 +78,52 @@
     {{#data}}
     <div class='flowtow'>
       <ul> 
-      <li class = "post" data-id={{id}} data-hash="#!/posts/{{id}}"><img src={{p_url}} style = "width: 60%;"> </li>
-        <li style = "font-weight: lighter; text-align: left; font-size:small"> Likes: {{p_likes}}</li>
+        {{#if p_image}}
+        <li class = "post" data-id={{id}} data-hash="#!/posts/{{id}}"><img src={{p_image.url}} style = "width: 60%;" alt="{{p_caption}}"> </li>
+        {{else}}
+        <li class = "post" data-id={{id}} data-hash="#!/posts/{{id}}"><img src={{p_url}} style = "width: 60%;" alt="{{p_caption}}"> </li>
+        {{/if}}
+        <li style = "font-weight: lighter; text-align: left; font-size:smaller"> Likes: {{p_likes}}</li>
         <li>{{p_caption}}</li>
-        <li>{{p_author.username}}</li>
+        <li>By {{p_author.username}}</li>
       </ul>
     </div>
     {{/data}}
+
   </script>
   <script id = "recent-posts-template" type="text/x-handlebars-template">
     <table>
       <tr><h2> Most recent posts </h2></tr>
     {{#data}}
       <tr id = "table-post-item">
-        <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}}></td>
+        {{#if p_image}}
+        <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_image.url}} alt="{{p_caption}}"></td>
+        {{else}}
+        <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}} alt="{{p_caption}}"></td>
+        {{/if}}
         <td c style = "font-weight:Bold">{{p_caption}}</td>
         <td style = "font-weight:lighter">{{p_author.username}}</td>
-        <td style = "font-weight:normal">{{published_at}}</td>
+        <td style = "font-weight:normal; font-size:1.1vw">{{published_at}}</td>
         <td style = "font-weight:normal">{{p_likes}}</td>
         <td><button type = 'button' class = "like" data-id="{{id}}">Like</button></td>
       </tr>
       {{/data}}
   </table>
   </script>
+  
   <script id = "popular-posts-template" type="text/x-handlebars-template">
     <table>
       <tr><h2> Most popular posts </h2></tr>
     {{#data}}
       <tr id = "table-post-item">
-        <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}}></td>
+        {{#if p_image}}
+        <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_image.url}} alt="{{p_caption}}"></td>
+        {{else}}
+        <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}} alt="{{p_caption}}"></td>
+        {{/if}}
         <td style = "font-weight:Bold">{{p_caption}}</td>
         <td style = "font-weight:lighter">{{p_author.username}}</td>
-        <td style = "font-weight:normal">{{published_at}}</td>
+        <td style = "font-weight:normal; font-size:1.1vw">{{published_at}}</td>
         <td style = "font-weight:normal">{{p_likes}}</td>
         <td><button type = 'button' class = "like" data-id="{{id}}">Like</button></td>
       </tr>
@@ -116,8 +132,18 @@
   </script>
 
   <script id="views-template" type="text/x-handlebars-template">
-    <ul id = "single-post">
-      <img src="{{p_url}}" alt="{{p_caption}}">
+    <div id = "single-post">
+      <div>
+      <ul>
+        {{#if p_image}}
+        <img src="{{p_image.url}}" alt="{{p_caption}}">
+        {{else}}
+        <img src="{{p_url}}" alt="{{p_caption}}">
+        {{/if}}
+    </ul>
+  </div>
+  <div>
+    <ul>
       <li style = "font-size:larger">{{p_caption}}</li>
       <br>
       <br>
@@ -127,10 +153,16 @@
       <br>
       <li><button type = 'button' class = "like" data-id="{{id}}">Like</button></li>
     </ul>
+  </div>
+  </div>
   </script>
   <script id="views-template2" type="text/x-handlebars-template">
     <ul id = "single-post">
+      {{#if p_image}}
+      <img src="{{p_image.url}}" alt="{{p_caption}}">
+      {{else}}
       <img src="{{p_url}}" alt="{{p_caption}}">
+      {{/if}}
       <li style = "font-size:larger">{{p_caption}}</li>
       <br>
       <br>
@@ -145,8 +177,10 @@
       <li style = "font-weight:lighter; font-style:italic;font-size:smaller;"> {{c_content}}</span></li>
       {{/each}}
       <br>
+      <li style="font-weight:very-light">Add a Comment</li>
       <form id="commentform">
         Comment: <input name=c_content>
+        <label style="font-weight:50; font-size:smaller;">c_post: {{id}}</label>
         <input type=submit>
       </form>
     </ul>
@@ -181,12 +215,19 @@
       {{#if data}}
          {{#data}}
           <tr id = "all-table-post">
-            <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}}></td>
+            {{#if p_image}}
+            <td style = "width:fit-content;"><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_image.url}} alt="{{p_caption}}"></td>
+            {{else}}
+            <td style = "width:fit-content;"><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}} alt="{{p_caption}}"></td>
+            {{/if}}
             <td style = "font-weight:Bold">{{p_caption}}</td>
             <td style = "font-weight:lighter">{{p_author.username}}</td>
             <td style = "font-weight:normal">{{published_at}}</td>
             <td style = "font-weight:normal">{{p_likes}}</td>
             <td><button type = 'button' class = "like" data-id="{{id}}">Like</button></td>
+            <td style = "padding:1vw">{{#each p_comment}}
+              <li style = "font-weight:lighter; font-style:italic;font-size:smaller;"> {{c_content}}</span></li>
+              {{/each}}</td>
           </tr>
         {{/data}}
       {{else}}
@@ -197,19 +238,26 @@
   </script>
 
   <script id = "my-posts-template" type="text/x-handlebars-template">
+    <div id = "create-post-area">
+    <p> Create a Post</p>
     <form id="postform">
       p_url: <input name=p_url>
       p_caption:  <input name=p_caption>
+      p_image: <input name=p_image type=file accept=/*>
       <input type=submit>
     </form>
-
+  </div>
     <div id = "all-table">
       <h2> My posts </h2>
       <table>
         {{#if data}}
            {{#data}}
             <tr id = "all-table-post">
-              <td><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}}></td>
+              {{#if p_image}}
+              <td style = "width:fit-content;"><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_image.url}} alt="{{p_caption}}"></td>
+              {{else}}
+              <td style = "width:fit-content;"><img class = "post" data-id={{id}} data-hash="#!/posts/{{id}}" src={{p_url}} alt="{{p_caption}}"></td>
+              {{/if}}
               <td style = "font-weight:Bold">{{p_caption}}</td>
               <td style = "font-weight:lighter">{{p_author.username}}</td>
               <td style = "font-weight:normal">{{published_at}}</td>

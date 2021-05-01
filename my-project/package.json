@@ -10,7 +10,7 @@
     "strapi": "strapi"
   },
   "devDependencies": {
-    "cypress": "^7.1.0"
+    "cypress": "^7.2.0"
   },
   "dependencies": {
     "knex": "0.21.18",

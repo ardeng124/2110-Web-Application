@@ -61,6 +61,8 @@ const Model = {
         let posts = this.getPosts();
         for(let i =0; i < posts.length; i++){
             if(posts[i].id === postid){
+              // posts[i].published_at =  posts[i].published_at.substr(0,9);
+              posts[i].published_at = new Date(posts[i].published_at);
                 return posts[i];
             }
         }
@@ -167,6 +169,8 @@ const Model = {
         for(let i=0; i<N;i++){
             let randomValue = [Math.floor(Math.random() * posts.length)] //chooses a random value from the array?
             postsReturned.push(posts[randomValue]);
+         //   postsReturned[i].published_at =  postsReturned[i].published_at.substr(0,9);
+
         }
         console.log(postsReturned);
         return postsReturned;
@@ -184,6 +188,8 @@ const Model = {
         });
         for(let i = 0; i< N;i++){
             recents.push(sortedPosts[i]);
+            recents[i].published_at =  recents[i].published_at.substr(0,10);
+
         };
         console.log(recents);  
         return recents;
@@ -200,6 +206,8 @@ const Model = {
         });
         for(let i = 0; i< N;i++){
             populars.push(sortedPosts[i]);
+            populars[i].published_at =  populars[i].published_at.substr(0,10);
+
         };
         console.log(populars);  
         return populars;
