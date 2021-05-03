@@ -111,12 +111,13 @@ cursor: pointer;
 }
 #whatis {
     width: 300px;
-    background-color: forestgreen;
+    background-color:rgb(214, 208, 242);
     border: 10px solid orchid;
     text-align: center;
-    margin:30px;
+    margin:auto;
     padding: 40px;
     justify-content: center;
+
 }
 
 #single-post img {
@@ -181,16 +182,7 @@ img{
     white-space: nowrap;
     padding:0.5vw
 }
-#all-table-post button{
-    cursor: pointer;
-    padding: 5px 25px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 1.2vw;
-    margin-bottom: 10px;
-    background-color:#008CBA;
-    color:white;
-}
+
 #all-table-post img{
     margin:1px;
     padding:5px;
@@ -219,6 +211,16 @@ img{
         margin-bottom: 10px;
         background-color:#008CBA;
         color:white;
+}
+.delete {
+    cursor: pointer;
+    padding: 5px 25px;  
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin-bottom: 10px;
+    background-color:rgb(182, 36, 36);
+    color:white;
 }
 #create-post-area{
     margin: 1vw;

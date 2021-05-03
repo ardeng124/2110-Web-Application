@@ -1,7 +1,7 @@
 /*
  *
- * Module: <name>
- * < short description here e.g. "This module implements view functions...">
+ * Module: Views
+ * This model implements view functions
  *
  * Student Name: Arden Gourlay
  * Student Number: 46447849
@@ -32,6 +32,7 @@ function mostRecentPosts(targetid,data){
 function mostPopularPosts(targetid,data){
     applyTemplate(targetid,"popular-posts-template",({'data': data}))
 };
+//this sets up a single post view
 function singlePostView(id, data){
     let target = document.getElementById("main");
     let template = Handlebars.compile(document.getElementById(id).textContent)
@@ -40,13 +41,15 @@ function singlePostView(id, data){
    let list = template(data);
    target.innerHTML = list;
 }
-
+//this sets up a login view if the user hasnt made a login attempt yet
 function loginView(targetid,data){
     applyTemplate(targetid, 'login-template', {"data":data});
 }
+//this sets up a login view if the user has made an incorrect login attempt 
 function loginView2(targetid,data){
     applyTemplate(targetid, 'login-template2', {"data":data});
 }
+//this sets up the all posts view
 function allPostsView(id, data){
     let target = document.getElementById("main");
     let template = Handlebars.compile(document.getElementById(id).textContent)

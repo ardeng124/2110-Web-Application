@@ -1,10 +1,10 @@
 /*
  *
- * Module: <name>
- * < short description here e.g. "This module implements user authentication ...">
+ * Module: Auth
+ * This module implements user authentication
  *
- * Student Name:
- * Student Number:
+ * Student Name: Arden Gourlay
+ * Student Number: 46447849
  *
  */ 
 
@@ -52,6 +52,7 @@ const Auth = {
     //getJWT - get the JWT from userData
     getJWT: function() {
         if (this.userData) {
+          //  console.log(this.userData.jwt)
             return this.userData.jwt;
         } else {
             return null;

@@ -41,12 +41,12 @@
   <div id = "main"> 
   <div id="flowtow-grid-container"> </div>
   <br>
-
       <div id = "table-posts-container">
         <div id = "recent-posts-container"> </div>
         <div id = "popular-posts-container"> </div>
       </div>
     </div>    
+    <br>
       <div id = "whatis">
         <p> Flowtow is an image sharing website!</p>
       </div>
@@ -263,6 +263,8 @@
               <td style = "font-weight:normal">{{published_at}}</td>
               <td style = "font-weight:normal">{{p_likes}}</td>
               <td><button type = 'button' class = "like" data-id="{{id}}">Like</button></td>
+              <td><button type = 'button' class = "delete" data-id="{{id}}">Delete</button></td>
+
             </tr>
           {{/data}}
         {{else}}

@@ -22,7 +22,20 @@ import {Auth} from './service.js';
     views.loginView('login', Auth.getUser());
     bindings();
 });
+//event listeners to update the model when certain actions are done 
 window.addEventListener("likeAdded", function(e){
+    //DO SOMETHING TO UPDATE 
+    Model.updatePosts();
+})
+window.addEventListener("postAdded", function(e){
+    //DO SOMETHING TO UPDATE 
+    Model.updatePosts();
+})
+window.addEventListener("postDeleted", function(e){
+    //DO SOMETHING TO UPDATE 
+    Model.updatePosts();
+})
+window.addEventListener("commentAdded", function(e){
     //DO SOMETHING TO UPDATE 
     Model.updatePosts();
 })
@@ -36,12 +49,14 @@ window.addEventListener('userLogin', function(e){
     console.log("login event ")
     views.loginView2('login', Auth.getUser());
 })
+//Function name: checkHash
+//Purpose: This function is designed to check the current hash of the page and respond accordingly
 function checkHash(){
     let hash = splitHash(window.location.hash)
     console.log(hash);
     if(window.location.hash === ""){
         reDoEverything();
-        console.log('ho')
+        //console.log('ho')
         views.randomThreePosts("flowtow-grid-container",Model.getRandomPosts(3));
         views.mostRecentPosts("recent-posts-container",Model.getRecentPosts(10));
         views.mostPopularPosts("popular-posts-container",Model.getPopularPosts(10));
@@ -54,6 +69,7 @@ function checkHash(){
     if(hash.path == "posts"){
         let id = hash.id
         let post = Model.getPost(Number(id))
+         // a little check to see if the user is logged in
         if(Auth.getUser() !=null){
             views.singlePostView("views-template2",post)
         } else{
@@ -62,6 +78,7 @@ function checkHash(){
     }
     if(hash.path == "all-posts"){
         let user = Auth.getUser();
+         // a little check to see if the user is logged in
         if(user!=null){
         console.log("ok")
         views.allPostsView("all-posts-template",Model.getPosts())
@@ -71,6 +88,7 @@ function checkHash(){
     }
     if(hash.path == "my-posts"){
         let user = Auth.getUser();
+        // a little check to see if the user is logged in
         if(user!=null){
             let user = Auth.getUser().id;
             console.log("ok")
@@ -95,6 +113,8 @@ function checkHash(){
     // update the page
     document.getElementById("target").innerHTML = content;
 }
+//Function name: postClickHandler
+//Purpose: Sets the hash to the clicked image
 function postClickHandler(){
     let id = this.dataset.id
     let post = Model.getPost(Number(id))
@@ -102,8 +122,9 @@ function postClickHandler(){
     location.hash = this.dataset.hash;
     //views.singlePostView("views-template",post)
 }
-
-function login_form_handler (event) {
+//Function name: loginFormHandler
+//Purpose: retrieves data from the login form and sends it to the service.js file to test for login
+function loginFormHandler (event) {
     event.preventDefault();
     console.log('the login form is'+ this);
     const username = this.elements['username'].value
@@ -113,7 +134,7 @@ function login_form_handler (event) {
     //send 
 }
 //FIX THIS FUNCTION EY?
-function post_form_handlerxxxx (event) {
+function postFormHandler (event) {
     event.preventDefault();
     console.log('the post data is'+ this);
     let picture = this.elements['p_image'].files[0]
@@ -127,11 +148,12 @@ function post_form_handlerxxxx (event) {
     imageData.append("files",picture)
    // console.log(username+password)
     this.reset();
-    Model.addPost(imageData, postData);
+    Model.addPost(postData, imageData);
     //send 
 }
-
-function post_form_handler (event) {
+//Function name: postFormHandler
+//Purpose: retrieves data from the post image form and prepares it for the addpost function in model.js
+function postFormHandlerxxx (event) {
     event.preventDefault();
     console.log('the post data is'+ this);
     let postData = {
@@ -144,8 +166,17 @@ function post_form_handler (event) {
     Model.addPost(postData);
     //send 
 }
-
-function comment_form_handler (event) {
+//Function name: postDeleteHandler
+//purpose: handles deleting of posts
+function postDeleteHandler (event) {
+    event.preventDefault();
+    //console.log('the post data is'+ this);
+    let id = this.dataset.id
+    Model.deletePost(Number(id))
+}
+//Function name: commentFormHandler
+//Purpose: retrieves comment data from the form and prepares it for the addComment function in model.js
+function commentFormHandler (event) {
     event.preventDefault();
     let hash = splitHash(window.location.hash)
     let id = hash.id
@@ -161,7 +192,8 @@ function comment_form_handler (event) {
     Model.updatePosts();
     //send 
 }
-
+//Function name: bindings  
+//Purpose: Applies actions to all the forms and buttons in the page
 function bindings(){
     let postItems = document.getElementsByClassName('post');
     for(let i =0; i<postItems.length; i++){
@@ -169,29 +201,36 @@ function bindings(){
     }
     let likeBtn = document.getElementsByClassName('like');
     for(let i =0; i<likeBtn.length; i++){
-        likeBtn[i].onclick = post_like_handler;
+        likeBtn[i].onclick = postLikeHandler;
+    }
+    let deleteBtn = document.getElementsByClassName('delete');
+    for(let i =0; i<deleteBtn.length; i++){
+        deleteBtn[i].onclick = postDeleteHandler;
     }
     let loginForm = document.getElementById('login-form')
     if(loginForm !=null){
-    loginForm.onsubmit = login_form_handler
+    loginForm.onsubmit = loginFormHandler
     }
     let postForm = document.getElementById('postform')
     if(postForm !=null){
-        postForm.onsubmit = post_form_handler
+        postForm.onsubmit = postFormHandler
     }
     let commentForm = document.getElementById('commentform')
     if(commentForm !=null){
-        commentForm.onsubmit = comment_form_handler
+        commentForm.onsubmit = commentFormHandler
     }
 }
-function post_like_handler(){
+//Function name: postLikeHandler
+//Purpose: retrieves the post id and sends it to the addlike function in model.js
+function postLikeHandler(){
    // event.preventDefault();
     //let hash = splitHash(window.location.hash);
     let id = this.dataset.id
-    console.log(id)
+    //console.log(id)
     Model.addLike(Number(id))
 }
-
+//Function name: reDoEverything
+//Purpose: this function is designed to place all the divs back on the main page after they get replaced by single post, all post, and my post views
 function reDoEverything(){
     let target = document.getElementById('main');
     let content = "<div id='flowtow-grid-container'></div>" 
@@ -213,7 +252,6 @@ window.onhashchange = function(){
 window.onload = function() {
     Model.updatePosts();
     //redraw();
-   
     //window.onhashchange = redraw();
     views.loginView('login', Auth.getUser)
 }

@@ -1,4 +1,5 @@
 export {Model};
+import { Auth } from "./service.js";
 /*
  *
  * Module: Model
@@ -75,7 +76,7 @@ const Model = {
     // addPost - add a new post by submitting a POST request to the server API
     // postData is an object containing all fields in the post object (e.g., p_caption)
     // when the request is resolved, creates an "postAdded" event
-    addPost: function(postData) {
+addPostxxx: function(postData) {
         fetch(this.postsUrl,{
             method: 'POST',
             headers: {
@@ -89,14 +90,48 @@ const Model = {
     })
 
 },
+    addPost: function(postData,imageData) {
+        fetch(this.uploadUrl,{
+            method: 'POST',
+            headers:{
+                Authorization: `bearer ${Auth.getJWT()}`,
+            },
+            body:imageData
+    }).then((response) => {
+        return response.json();
+    }).then((data) => {
+        console.log(data);
+        postData = {...postData, "p_image":data[0]}
+        return fetch(this.postsUrl,{
+            method: 'POST',
+            headers: {
+                Authorization: `bearer ${Auth.getJWT()}`,
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(postData)
+    }).then((response) => {
+        return response.json();
+    }).then((data) => {
+        console.log(data);
+        this.data.posts.push(data)
+        let event = new CustomEvent('postAdded')
+        window.dispatchEvent(event);
+    })
+    })
+
+    },
 
     // getUserPosts - return just the posts for one user as an array
     getUserPosts: function(userid) {
         let posts = this.getPosts();
         let userPosts = [];
+        let sortedPosts = posts.sort(function(a, b) {
+            var dateA = new Date(a.published_at), dateB = new Date(b.published_at);
+            return dateB - dateA;
+        });
         for(let i=0; i<posts.length;i++){
-            if(posts[i].p_author.id == userid){
-                userPosts.push(posts[i]);
+            if(sortedPosts[i].p_author.id == userid){
+                userPosts.push(sortedPosts[i]);
             }
         }
         console.log(userPosts,"ok");
@@ -115,7 +150,8 @@ const Model = {
         let url = this.postsUrl + "/"+postId;
         target.p_likes = likes.toString();
         likes = likes.toString();
-        console.log(target)
+       // console.log(target)
+       //our PUT Request to update the likes
         fetch(url,{
             method: 'PUT',
             headers: {
@@ -133,16 +169,50 @@ const Model = {
             window.dispatchEvent(event);
         })
     },
+    //// deletePost - we will delete a post and its associated comments with fetch requests
+    // postID is a number which is the post id
+    // when the request is resolved, creates an "postDeleted" event
+    deletePost: function (postId) { 
+        let url = this.postsUrl + "/"+postId;
+        console.log(url)
+        let post = this.getPost(postId);
+       //our PUT Request to update the likes
+       for(let i =0; i < post.p_comment.length;i++){
+           let id = post.p_comment[i].id;
+           console.log(post.p_comment[i])
 
+           fetch(this.commentsUrl+"/"+id, {
+            method: 'DELETE',
+            headers:{
+              Authorization: `bearer ${Auth.getJWT()}`,
+            }
+          })
+       }
+        fetch(url, {
+          method: 'DELETE',
+          headers:{
+            Authorization: `bearer ${Auth.getJWT()}`,
+          }
+        })
+        .then(response => {
+            return response.json()
+
+        });
+        let event = new CustomEvent('postDeleted')
+            window.dispatchEvent(event);
+      },
+    
     // addComment - add a comment to a post 
     //      by submitting a POST request to the server API
     //      commentData is an object containing the content of the comment, the author and the postid
     // when the request is resolved, creates an "commentAdded" event
     addComment: function (commentData) {
         let url = this.postsUrl + "/"+commentData.c_post.id;
+        //our nested fetch function to add the comment both to /comments and to /posts
         fetch(this.commentsUrl,{
             method: 'POST',
             headers: {
+                Authorization: `bearer ${Auth.getJWT()}`,
                 'content-type':'application/json'
             },
             body: JSON.stringify(commentData)
@@ -153,6 +223,7 @@ const Model = {
             fetch(url,{
                 method: 'PUT',
                 headers: {
+                    Authorization: `bearer ${Auth.getJWT()}`,
                     'content-type':'application/json'
                 },
                 body: JSON.stringify({
@@ -160,6 +231,8 @@ const Model = {
                 })
             })
         })
+        let event = new CustomEvent('commentAdded')
+            window.dispatchEvent(event);
     },
 
     //getRandomPosts - return N random posts as an array
@@ -188,7 +261,8 @@ const Model = {
         });
         for(let i = 0; i< N;i++){
             recents.push(sortedPosts[i]);
-            recents[i].published_at =  recents[i].published_at.substr(0,10);
+            //this just grabs a substring of the full date to improve readability
+          //  recents[i].published_at =  recents[i].published_at.substr(0,10);
 
         };
         console.log(recents);  
@@ -205,8 +279,9 @@ const Model = {
             return b.p_likes - a.p_likes;
         });
         for(let i = 0; i< N;i++){
-            populars.push(sortedPosts[i]);
-            populars[i].published_at =  populars[i].published_at.substr(0,10);
+            populars.push(sortedPosts[i])
+            //this just grabs a substring of the full date to improve readability
+            //populars[i].published_at =  populars[i].published_at.substr(0,10);
 
         };
         console.log(populars);  
