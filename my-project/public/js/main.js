@@ -101,7 +101,7 @@ function checkHash(){
     }
     
 }
-
+// no idea what this is for
   function redraw() { 
     let content = "<h2>API Test</h2><ul>";
     content += "<li><a href='/#'>Three Posts</a></li>";
@@ -133,7 +133,8 @@ function loginFormHandler (event) {
     Auth.login(username, password);
     //send 
 }
-//FIX THIS FUNCTION EY?
+//Function name: postFormHandler
+//Purpose: retrieves data from the post image form and prepares it for the addpost function in model.js
 function postFormHandler (event) {
     event.preventDefault();
     console.log('the post data is'+ this);
@@ -142,6 +143,7 @@ function postFormHandler (event) {
         'p_url':this.elements['p_url'].value,
         'p_caption':this.elements['p_caption'].value,
         'p_author': Auth.getUser(),
+        'p_likes': 0
     }
 
     let imageData = new FormData()
@@ -151,21 +153,7 @@ function postFormHandler (event) {
     Model.addPost(postData, imageData);
     //send 
 }
-//Function name: postFormHandler
-//Purpose: retrieves data from the post image form and prepares it for the addpost function in model.js
-function postFormHandlerxxx (event) {
-    event.preventDefault();
-    console.log('the post data is'+ this);
-    let postData = {
-        'p_url':this.elements['p_url'].value,
-        'p_caption':this.elements['p_caption'].value,
-        'p_author': Auth.getUser(),
-    }
-   // console.log(username+password)
-    this.reset();
-    Model.addPost(postData);
-    //send 
-}
+
 //Function name: postDeleteHandler
 //purpose: handles deleting of posts
 function postDeleteHandler (event) {
