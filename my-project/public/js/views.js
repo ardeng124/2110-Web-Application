@@ -22,7 +22,7 @@ function applyTemplate(targetid,templateid,data){
 //randomThreePosts - generates a view of 3 random people
 //this applies the template to the three random posts
 function randomThreePosts(targetid,data){
-    applyTemplate(targetid,"three-posts-template",({'data': data}))
+        applyTemplate(targetid,"three-posts-template",({'data': data}))
 }
 //this applies the template to most recent posts
 function mostRecentPosts(targetid,data){
